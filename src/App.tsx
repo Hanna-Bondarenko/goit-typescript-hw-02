@@ -7,6 +7,7 @@ import LoadMoreBtn from "./components/LoadMoreBtn/LoadMoreBtn";
 import ImageModal from "./components/ImageModal/ImageModal";
 import { fetchImages, Image } from "./services/imageApi";
 import { Toaster } from "react-hot-toast";
+import { getSeason } from "./utils/getSeason";
 
 const App: React.FC = () => {
   const [images, setImages] = useState<Image[]>([]);
@@ -17,6 +18,11 @@ const App: React.FC = () => {
   const [totalPages, setTotalPages] = useState(0);
   const [showModal, setShowModal] = useState(false);
   const [modalImage, setModalImage] = useState<Image | null>(null);
+
+  useEffect(() => {
+    const defaultQuery = getSeason(); // Визначаємо тему для поточної пори року
+    setQuery(defaultQuery); // Встановлюємо як початковий пошуковий запит
+  }, []); // Виконується лише один раз при завантаженні сторінки
 
   useEffect(() => {
     if (!query) return;
